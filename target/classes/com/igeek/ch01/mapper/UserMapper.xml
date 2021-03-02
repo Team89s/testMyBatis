@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace的值：与当前Mapper.xml同名接口的全类名 -->
+<mapper namespace="com.igeek.ch01.mapper.UserMapper">
+
+    <!--
+        需求1：通过id查询用户信息
+        1.id属性 ：作为statement语句的唯一标识 ，在同一个namespace下，不允许重复
+        2.parameterType属性：输入参数的类型，?占位符的数据类型（自动完成映射）
+        3.resultType属性：查询结果对应的类型（自动完成映射）
+        #{}充当之前的占位符?
+            若是简单数据类型，{}里面的名字可以任意写；
+			若是引用数据类型，{}里面的名字只能与此类型中的属性名一致
+    -->
+    <select id="selectOneById" parameterType="int" resultType="User">
+        select * from user where id = #{id}
+    </select>
+
+</mapper>
