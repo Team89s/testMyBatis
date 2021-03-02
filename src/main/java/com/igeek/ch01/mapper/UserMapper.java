@@ -2,6 +2,8 @@ package com.igeek.ch01.mapper;
 
 import com.igeek.entity.User;
 
+import java.util.List;
+
 /**
  * MyBatis 实现映射关系的规范：
  * 1.Mapper接口与Mapper.xml文件同名且在同路径下
@@ -16,4 +18,9 @@ public interface UserMapper {
     //通过id查询用户信息
     public User selectOneById(int id);
 
+    //根据用户名称模糊查询用户信息
+    public List<User> selectListByLikeName(String name);
+
+    //插入用户
+    public void insertUser(User user);
 }
