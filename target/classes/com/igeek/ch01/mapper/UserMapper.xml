@@ -36,7 +36,7 @@
         当parameterType给定的是pojo复杂类型，要求#{key}中的key必须与parameterType提供类型中的getXxx()的xxx一致
      -->
     <insert id="insertUser" parameterType="User">
-        /* 获取自增长id */
+        <!-- 获取自增长id -->
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>

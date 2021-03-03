@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igeek.ch02.parameterType.pojo.UserMapper">
+
+    <!--
+        需求：通过性别和姓名模糊综合查询用户信息
+    -->
+
+    <!--
+        方式一：通过parameterType类型为pojo包装类型
+    -->
+    <select id="findUserByPojo" parameterType="UserQueryVO" resultType="UserCustom">
+        select * from user where sex = #{userCustom.sex}
+        and username like concat('%',#{userCustom.username},'%')
+    </select>
+
+    <!--
+        方式二：通过parameterType类型为hashmap类型
+    -->
+    <select id="findUserByHashMap" parameterType="hashmap" resultType="UserCustom">
+        select * from user where sex = #{gender}
+        and username like concat('%',#{name},'%')
+    </select>
+
+</mapper>
