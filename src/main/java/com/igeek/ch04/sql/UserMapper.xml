@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igeek.ch04.sql.UserMapper">
+
+    <!--
+        定义sql片段:
+        不允许性别或者姓名为null或者空串
+    -->
+    <sql id="query_sex_name">
+        <if test="userCustom!=null">
+            <if test="userCustom.sex !=null and userCustom.sex !=''">
+                and sex = #{userCustom.sex}
+            </if>
+            <if test="userCustom.username !=null and userCustom.username !=''">
+                and username like concat('%',#{userCustom.username},'%')
+            </if>
+        </if>
+    </sql>
+
+
+    <!--
+      sql片段：根据一组id查询用户信息
+      and id in (10,15,20)
+      and (id=10 or id=16 or id=22)
+    -->
+    <sql id="query_user_ids">
+        <if test="ids!=null">
+            <foreach collection="ids" item="id" open="and id in (" close=")" separator=",">
+                #{id}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--
+        1.需求：通过用户性别和姓名查询用户列表
+        PS：不允许性别或者姓名为null或者空串
+    -->
+    <select id="findUserByPojo" parameterType="UserQueryVO" resultType="UserCustom">
+        select * from user
+        <!-- where标签会自动去除第一个条件的and -->
+        <where>
+            <include refid="query_sex_name"></include>
+        </where>
+    </select>
+
+
+    <!--
+        2.需求：通过用户性别和姓名查询用户列表条数
+        PS：不允许性别或者姓名为null或者空串
+    -->
+    <select id="findCountsByPojo" parameterType="UserQueryVO" resultType="int">
+        select count(*) from user
+        <!-- where标签会自动去除第一个条件的and -->
+        <where>
+            <include refid="query_sex_name"></include>
+        </where>
+    </select>
+
+
+    <!--
+        3.需求：通过用户性别和姓名查询用户列表，且id值是15或20或25
+        PS：不允许性别或者姓名为null或者空串
+    -->
+    <select id="findUserByPojoAndId" parameterType="UserQueryVO" resultType="UserCustom">
+        select * from user
+        <!-- where标签会自动去除第一个条件的and -->
+        <where>
+            <!-- 不允许性别或者姓名为null或者空串 -->
+            <include refid="query_sex_name" />
+
+            <!-- 通过一组id查询数据 -->
+            <include refid="query_user_ids" />
+        </where>
+    </select>
+
+</mapper>

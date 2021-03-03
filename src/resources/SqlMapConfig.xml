@@ -11,9 +11,10 @@
 
 
         <!-- 配置全局参数 -->
-        <!--<settings>
-            <setting name="" value=""/>
-        </settings>-->
+        <settings>
+            <!-- 开启驼峰式命名 -->
+            <setting name="mapUnderscoreToCamelCase" value="true"/>
+        </settings>
 
         <!-- 自定义别名:扫描指定包下的实体类，给这些类取别名，默认是它的类名或者类名首字母小写 -->
         <typeAliases>
@@ -44,6 +45,7 @@
             <package name="com.igeek.ch01.mapper" />
             <package name="com.igeek.ch02.parameterType.pojo" />
             <package name="com.igeek.ch03" />
+            <package name="com.igeek.ch04" />
         </mappers>
 
 </configuration>
