@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igeek.ch03.resultType.simple.UserMapper">
+
+    <!--
+        1.resultType输出参数类型是  简单类型，例如String、int等等
+        需求：根据性别和姓名模糊 综合查询总记录数
+    -->
+    <select id="findCountsByPojo" parameterType="UserQueryVO" resultType="int">
+        select count(*) from user where sex=#{userCustom.sex}
+        and username like concat('%',#{userCustom.username},'%')
+    </select>
+
+</mapper>

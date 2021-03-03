@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igeek.ch03.resultMap.UserMapper">
+
+    <!--
+        resultMap
+        当pojo中的属性与表中的字段名称不一致时，将其形成映射关系
+        将表中查询的字段column 与 type所指定类中属性property 完成一一映射
+        1.id属性：作为当前namespace命名空间中唯一标识，被SQL语句中resultMap所引用
+        2.type属性：查询的statement语句，返回的数据类型
+    -->
+    <resultMap id="userMap" type="UserCustom">
+        <!--
+			id： 处理表中的主键
+			column属性：表中字段的列名
+			property属性：类中的属性名
+			resultMap可以将指定的column与property形成映射关系
+		-->
+        <id column="a" property="id" />
+
+        <!--
+			result： 处理表中的普通字段
+			column属性：表中字段的列名
+			property属性：类中的属性名
+			resultMap可以将指定的column与property形成映射关系
+		-->
+        <result column="b" property="username" />
+        <result column="c" property="address" />
+    </resultMap>
+
+
+    <!--
+        需求：通过id查询用户信息
+        通过resultType输出类型自动完成映射
+        1.一旦所有查询的字段都不能与提供的resultType类型有一致的，则无法映射成Java对象，则为null
+        2.一旦有任意一个字段能够与resultType类型中属性保持一致，则可以映射成Java对象
+    -->
+
+    <!--
+        resultMap属性：引用<resultMap>的id，
+        若此<resultMap>不在同一个namespace下，则需要加上其所在的namespace.id
+    -->
+    <select id="findUserById" parameterType="int" resultMap="userMap">
+        select id a , username b, address c from user where id = #{id}
+    </select>
+
+</mapper>

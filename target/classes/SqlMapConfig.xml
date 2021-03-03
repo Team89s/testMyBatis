@@ -43,6 +43,7 @@
         <mappers>
             <package name="com.igeek.ch01.mapper" />
             <package name="com.igeek.ch02.parameterType.pojo" />
+            <package name="com.igeek.ch03" />
         </mappers>
 
 </configuration>
