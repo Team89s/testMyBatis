@@ -11,6 +11,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 
@@ -74,10 +76,11 @@ public class UserMapperTest {
         userCustom.setSex("1");
         userCustom.setUsername("明");
         //一组id
-        List<Integer> ids = new ArrayList<>();
+        List<Integer> ids = Stream.of(10, 16, 22).collect(Collectors.toList());
+        /*List<Integer> ids = new ArrayList<>();
         ids.add(10);
         ids.add(16);
-        ids.add(22);
+        ids.add(22);*/
 
         UserQueryVO vo = new UserQueryVO();
         vo.setUserCustom(userCustom);

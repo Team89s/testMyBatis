@@ -7,6 +7,9 @@
     <!--
         定义sql片段:
         不允许性别或者姓名为null或者空串
+
+        if标签：判断
+        test属性：表达式为true时则执行
     -->
     <sql id="query_sex_name">
         <if test="userCustom!=null">
@@ -22,13 +25,25 @@
 
     <!--
       sql片段：根据一组id查询用户信息
-      and id in (10,15,20)
-      and (id=10 or id=16 or id=22)
+
+      foreach标签：迭代
+      collection属性：迭代的元素（来源于引入片段是parameterType指定的类型中，关联的查询条件）
+      item属性：临时变量，迭代出的每一项
+      open属性：起始
+      close属性：结束
+      separator属性：拼接符
+
+      方式一：and id in (10,15,20)
+      方式二：and (id=10 or id=16 or id=22)
     -->
     <sql id="query_user_ids">
         <if test="ids!=null">
-            <foreach collection="ids" item="id" open="and id in (" close=")" separator=",">
+            <!--<foreach collection="ids" item="id" open="and id in (" close=")" separator=",">
                 #{id}
+            </foreach>-->
+
+            <foreach collection="ids" item="id" open="and (" close=")" separator="or">
+                id=#{id}
             </foreach>
         </if>
     </sql>
