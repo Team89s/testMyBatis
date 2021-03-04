@@ -10,11 +10,10 @@
         1.id属性 ：作为statement语句的唯一标识 ，在同一个namespace下，不允许重复
         2.parameterType属性：输入参数的类型，?占位符的数据类型（自动完成映射）
         3.resultType属性：查询结果对应的类型（自动完成映射）
-        #{}充当之前的占位符?
+
+        #{}充当之前的占位符?，避免SQL注入的问题
             若是简单数据类型，{}里面的名字可以任意写；
 			若是引用数据类型，{}里面的名字只能与此类型中的属性名一致
-
-		${}拼接sql语句
     -->
     <select id="selectOneById" parameterType="int" resultType="User">
         select * from user where id = #{id}
@@ -24,7 +23,21 @@
         需求2：根据用户名称模糊查询用户信息
         resultType属性：查询结果对应的类型（自动完成映射）
         若查询出来的数据是若干条，即返回的是集合，则填写单条记录的数据类型
+
+        #{}  相当于之前的占位符?，类似PrepareStatement使用方式，可有有效避免SQL注入的问题
+            若是简单数据类型，{}里面的名字可以任意写；
+			若是引用数据类型，{}里面的名字只能与此类型中的属性名一致
+
+		${}  拼接sql语句，类似于Statement使用方式，会造成SQL注入问题
+		    若是简单数据类型，{}里面只能是value，即${value}
+		    当传参时，类似于' or 1=1 or '结构，则会造成SQL注入
     -->
+    <!-- sql拼接  -->
+    <!--<select id="selectListByLikeName" parameterType="String" resultType="User">
+        select * from user where username like '%${value}%'
+    </select>-->
+
+    <!-- 占位符  -->
     <select id="selectListByLikeName" parameterType="String" resultType="User">
         select * from user where username like concat('%',#{username},'%')
     </select>

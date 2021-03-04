@@ -46,6 +46,7 @@
             <package name="com.igeek.ch02.parameterType.pojo" />
             <package name="com.igeek.ch03" />
             <package name="com.igeek.ch04" />
+            <package name="com.igeek.ch05" />
         </mappers>
 
 </configuration>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igeek.ch05.om.OrdersAndOrderdetailMapper">
+
+    <!--
+        需求：查询订单及订单明细的信息
+        extends属性：指定所想要继承的resultMap的映射关系，
+        若当前resultMap与statement语句不在一个namespace下，
+        需要通过namespace.resultMap的id。
+    -->
+    <resultMap id="ordersAndDetailMap" type="OrdersCustom" extends="com.igeek.ch05.oo.OrdersAndUserMapper.ordersAndUserMap">
+        <!-- 订单信息 -->
+
+        <!--  一对一关联  用户信息 -->
+
+        <!--
+            一对多关联  订单明细信息 collection
+            1.property属性：type指定的类中，一对多关联的属性名
+            2.ofType属性：type指定的类中，一对多关联的属性，集合中元素的类型
+        -->
+        <collection property="orderdetailCustomList" ofType="OrderdetailCustom">
+            <id column="oid" property="id"/>
+            <result column="id" property="ordersId" />
+            <result column="items_id" property="itemsId" />
+            <result column="items_num" property="itemsNum" />
+        </collection>
+
+    </resultMap>
+
+
+    <select id="findOrders" resultMap="ordersAndDetailMap">
+        select orders.* , o.id oid , o.items_id , o.items_num
+        from orders , orderdetail o
+        where orders.id = o.orders_id
+    </select>
+
+
+    <!-- 需求：查询订单及订单明细的信息，及其下单者信息 -->
+</mapper>

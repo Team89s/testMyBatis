@@ -52,6 +52,14 @@ public class UserMapperTest {
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         //3.执行
         List<User> userList = userMapper.selectListByLikeName("明");
+
+        /*
+            select * from user where username like '%${value}%'
+            拼接后，发生SQL注入：
+            select * from user where username like '%' or 1=1 or '%'
+         */
+        //List<User> userList = userMapper.selectListByLikeName("' or 1=1 or '");
+
         for (User user : userList) {
             System.out.println(user);
         }

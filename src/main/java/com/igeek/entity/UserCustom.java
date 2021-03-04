@@ -12,4 +12,9 @@ public class UserCustom extends User {
     //关联...
     //private List<Orders> ordersList;
 
+
+    @Override
+    public String toString() {
+        return "UserCustom{} " + super.toString();
+    }
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igeek.ch05.oo.OrdersAndUserMapper">
+
+    <!--
+        方式一：resultType
+        需求：查询订单信息，关联查询创建订单的用户信息
+    -->
+    <select id="findOrdersAndUser" resultType="OrdersCustom">
+        select orders.* , user.username , user.birthday , user.sex , user.address
+        from orders , user
+        where orders.user_id = user.id
+    </select>
+
+
+    <!--
+        方式二：resultMap
+        需求：查询订单信息，关联查询创建订单的用户信息
+
+        type属性：真正返回的数据的类型
+    -->
+    <resultMap id="ordersAndUserMap" type="OrdersCustom">
+        <!--
+            订单信息
+            id 主键一一映射
+            result 普通域一一映射
+
+            column属性：表中的字段名
+            property属性：type指定的类中属性名
+        -->
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="number" property="number" />
+        <result column="createtime" property="createtime" />
+        <result column="note" property="note" />
+
+        <!--
+            一对一关联  用户信息 association
+            property属性：type指定的类中，一对一关联的属性名
+            javaType属性：type指定的类中，一对一关联的属性的类型
+        -->
+        <association property="userCustom" javaType="UserCustom">
+            <id column="user_id" property="id" />
+            <result column="username" property="username" />
+            <result column="sex" property="sex" />
+            <result column="birthday" property="birthday" />
+            <result column="address" property="address" />
+        </association>
+
+    </resultMap>
+
+
+    <select id="findOrdersAndUserMap" resultMap="ordersAndUserMap">
+        select orders.* , user.username , user.birthday , user.sex , user.address
+        from orders , user
+        where orders.user_id = user.id
+    </select>
+
+</mapper>
