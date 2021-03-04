@@ -8,8 +8,34 @@ package com.igeek.entity;
  */
 public class OrderdetailCustom extends Orderdetail {
 
-    @Override
+    //一对一关联 商品信息
+    private ItemsCustom itemsCustom;
+
+
+    public OrderdetailCustom() {
+    }
+
+    public OrderdetailCustom(ItemsCustom itemsCustom) {
+        this.itemsCustom = itemsCustom;
+    }
+
+    /**
+     * 获取
+     * @return itemsCustom
+     */
+    public ItemsCustom getItemsCustom() {
+        return itemsCustom;
+    }
+
+    /**
+     * 设置
+     * @param itemsCustom
+     */
+    public void setItemsCustom(ItemsCustom itemsCustom) {
+        this.itemsCustom = itemsCustom;
+    }
+
     public String toString() {
-        return "OrderdetailCustom{} " + super.toString();
+        return super.toString();
     }
 }

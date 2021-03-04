@@ -143,6 +143,6 @@ public class OrdersCustom extends Orders{
     }
 
     public String toString() {
-        return "OrdersCustom{userCustom = " + userCustom + ", orderdetailCustomList = " + orderdetailCustomList + "}" +super.toString();
+        return super.toString();
     }
 }

@@ -1,5 +1,7 @@
 package com.igeek.entity;
 
+import java.util.List;
+
 /**
  * @version 1.0
  * @Description UserCustom 是User的拓展类
@@ -8,13 +10,33 @@ package com.igeek.entity;
  */
 public class UserCustom extends User {
 
+    //一对多关联 订单信息
+    private List<OrdersCustom> ordersList;
 
-    //关联...
-    //private List<Orders> ordersList;
+    public UserCustom() {
+    }
 
+    public UserCustom(List<OrdersCustom> ordersList) {
+        this.ordersList = ordersList;
+    }
 
-    @Override
+    /**
+     * 获取
+     * @return ordersList
+     */
+    public List<OrdersCustom> getOrdersList() {
+        return ordersList;
+    }
+
+    /**
+     * 设置
+     * @param ordersList
+     */
+    public void setOrdersList(List<OrdersCustom> ordersList) {
+        this.ordersList = ordersList;
+    }
+
     public String toString() {
-        return "UserCustom{} " + super.toString();
+        return super.toString();
     }
 }
