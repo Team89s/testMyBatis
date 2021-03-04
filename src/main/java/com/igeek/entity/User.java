@@ -1,12 +1,13 @@
 package com.igeek.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * po类 实体类  User.java
  * @author chenmin
  */
-public class User {
+public class User implements Serializable {
 	//属性名称和数据库表的字段对应
 	private int id;
 	private String username;// 用户姓名

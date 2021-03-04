@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igeek.ch07.cache2.UserMapper">
+
+    <!--
+        给当前的namespace开启二级缓存
+        3.flushInterval属性：flushInterval="2" 单位s，表示mybatis每隔一段时间清空缓存
+    -->
+    <cache  />
+
+    <!-- 需求：通过用户id查询用户信息 -->
+    <!--
+        1.useCache属性：默认值true，默认可以使用二级缓存；当设置为false时，将禁用二级缓存
+        useCache="false"
+    -->
+    <select id="findUserById" parameterType="int" resultType="UserCustom" >
+        select * from user where id = #{id}
+    </select>
+
+    <!-- 需求：通过用户id更新用户信息 -->
+    <!--
+        2.flushCache属性：默认值为true，表示一旦insert、update、delete后可以清空缓存，避免读到脏数据；
+        值设置为false，flushCache="false"，执行增删改时，不会清空缓存，建议不要使用false。
+    -->
+    <update id="updateUser" parameterType="UserCustom" >
+        update user set username=#{username} , sex=#{sex} ,
+        address=#{address},birthday=#{birthday}
+        where id=#{id}
+    </update>
+</mapper>

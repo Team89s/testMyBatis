@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igeek.ch06.lazy.OrdersAndUserMapper">
+
+    <!-- 需求：延迟加载，查询订单并且关联查询用户信息 -->
+
+    <resultMap id="ordersMapByLazy" type="OrdersCustom">
+        <!-- 订单信息 -->
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="number" property="number" />
+        <result column="createtime" property="createtime" />
+        <result column="note" property="note" />
+
+        <!--
+            一对一关联 用户信息
+            延迟加载：association、collection才具备的按需加载功能
+
+            property属性：type指定的类型中，一对一关联的属性名
+            javaType属性：type指定的类型中，一对一关联的属性的类型
+            select属性：按需加载的statement语句的id；
+            若按需加载的statement语句 不在同一个namespace下，则使用namespace.statement的id
+            column属性：按需加载的statement语句的输入参数，即当前单表查询的某个字段
+        -->
+        <association property="userCustom" javaType="UserCustom"
+            select="findUserById" column="user_id"></association>
+
+    </resultMap>
+
+
+    <!-- 第一步：查询所有订单信息  先完成单表查询 -->
+    <select id="findOrdersByLazy" resultMap="ordersMapByLazy">
+        select * from orders
+    </select>
+
+    <!-- 第二步：查询关联用户信息 -->
+    <select id="findUserById" parameterType="int" resultType="UserCustom">
+        select * from user where id = #{id}
+    </select>
+
+</mapper>
