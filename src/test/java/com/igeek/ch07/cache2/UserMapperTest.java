@@ -54,11 +54,11 @@ public class UserMapperTest {
         //关闭资源
         sqlSession3.close();*/
 
-        try {
+        /*try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         //在sqlSession2中，发起第二次查询

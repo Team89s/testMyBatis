@@ -8,6 +8,10 @@
         给当前的namespace开启二级缓存
         3.flushInterval属性：flushInterval="2" 单位s，表示mybatis每隔一段时间清空缓存
     -->
+    <!--
+        type="org.apache.ibatis.cache.impl.PerpetualCache"
+        是MyBatis默认的缓存实现，一般可以不写
+    -->
     <cache  />
 
     <!-- 需求：通过用户id查询用户信息 -->

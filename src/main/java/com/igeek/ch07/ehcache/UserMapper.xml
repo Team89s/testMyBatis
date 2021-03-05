@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igeek.ch07.ehcache.UserMapper">
+
+    <!--
+        整合第三方的缓存框架 - ehcache
+        1.引入相关依赖（ehcache、mybatis-ehcache）
+        2.引入的依赖中，查找实现Cache接口的实现类 - org.mybatis.caches.ehcache.EhcacheCache
+        3.在类路径下classpath，新建ehcache.xml的文件
+    -->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache" />
+
+    <!-- 需求：通过用户id查询用户信息 -->
+    <select id="findUserById" parameterType="int" resultType="UserCustom" >
+        select * from user where id = #{id}
+    </select>
+
+    <!-- 需求：通过用户id更新用户信息 -->
+    <update id="updateUser" parameterType="UserCustom" >
+        update user set username=#{username} , sex=#{sex} ,
+        address=#{address},birthday=#{birthday}
+        where id=#{id}
+    </update>
+</mapper>
